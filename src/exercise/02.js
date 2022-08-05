@@ -9,17 +9,22 @@ function useLocalStorageState(
   {serialize = JSON.stringify, deserialize = JSON.parse} = {},
 ) {
   const [state, setState] = React.useState(() => {
-    const valueInLocalStorage = window.localStorage.getItem(key) ?? defaultValue
+    const valueInLocalStorage = window.localStorage.getItem(key)
     if (valueInLocalStorage) {
       return deserialize(valueInLocalStorage)
     }
-    return typeof defaultValue === 'function' ? defaultValue : defaultValue
+    return typeof defaultValue === 'function' ? defaultValue() : defaultValue
   })
 
   const prevKeyRef = React.useRef(key)
+  console.log('🚀 ~ file: 02.js ~ line 20 ~ prevKeyRef', prevKeyRef)
 
   React.useEffect(() => {
     const prevKey = prevKeyRef.current
+    console.log(
+      '🚀 ~ file: 02.js ~ line 25 ~ React.useEffect ~ prevKey !== key',
+      prevKey !== key,
+    )
     if (prevKey !== key) {
       window.localStorage.removeItem(prevKey)
     }
@@ -40,7 +45,9 @@ function Greeting({initialName = ''}) {
   //   return window.localStorage.getItem('name') ?? initialName
   // }
 
-  // const [name, setName] = React.useState(nameValue) // not optimal for performance, every time the componente renders it will check for the local storage item, and is not necessary since is only the initial value.
+  // const [name, setName] = React.useState(nameValue) // not optimal for
+  // performance, every time the componente renders it will check for the local
+  // storage item, and is not necessary since is only the initial value.
   // const [name, setName] = React.useState(getInitialNameValue)
   const [name, setName] = useLocalStorageState('name', initialName)
 
