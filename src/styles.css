@@ -70,6 +70,14 @@ https://micku7zu.github.io/vanilla-tilt.js/index.html
   width: 34px;
 }
 
+.winner--X {
+  background: rgb(16, 198, 239);
+}
+
+.winner--O {
+  background: rgb(255, 52, 52);
+}
+
 .square:focus {
   outline: none;
   background: #ddd;

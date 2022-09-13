@@ -9,11 +9,11 @@ function useLocalStorageState(
   {serialize = JSON.stringify, deserialize = JSON.parse} = {},
 ) {
   const [state, setState] = React.useState(() => {
-    const valueInLocalStorage = window.localStorage.getItem(key) ?? defaultValue
+    const valueInLocalStorage = window.localStorage.getItem(key)
     if (valueInLocalStorage) {
       return deserialize(valueInLocalStorage)
     }
-    return typeof defaultValue === 'function' ? defaultValue : defaultValue
+    return typeof defaultValue === 'function' ? defaultValue() : defaultValue
   })
 
   const prevKeyRef = React.useRef(key)
@@ -40,8 +40,11 @@ function Greeting({initialName = ''}) {
   //   return window.localStorage.getItem('name') ?? initialName
   // }
 
-  // const [name, setName] = React.useState(nameValue) // not optimal for performance, every time the componente renders it will check for the local storage item, and is not necessary since is only the initial value.
+  // const [name, setName] = React.useState(nameValue) // not optimal for
+  // performance, every time the componente renders it will check for the local
+  // storage item, and is not necessary since is only the initial value.
   // const [name, setName] = React.useState(getInitialNameValue)
+  console.log('%c   Child: render start', 'color: MediumSpringGreen')
   const [name, setName] = useLocalStorageState('name', initialName)
 
   // 🐨 Here's where you'll use `React.useEffect`.

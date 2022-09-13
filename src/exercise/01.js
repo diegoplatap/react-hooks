@@ -26,7 +26,7 @@ function Greeting({initialName = ''}) {
 }
 
 function App() {
-  return <Greeting initialName="Diego" />
+  return <Greeting initialName="" />
 }
 
 export default App
