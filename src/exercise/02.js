@@ -17,9 +17,14 @@ function useLocalStorageState(
   })
 
   const prevKeyRef = React.useRef(key)
+  console.log('🚀 ~ file: 02.js ~ line 20 ~ prevKeyRef', prevKeyRef)
 
   React.useEffect(() => {
     const prevKey = prevKeyRef.current
+    console.log(
+      '🚀 ~ file: 02.js ~ line 25 ~ React.useEffect ~ prevKey !== key',
+      prevKey !== key,
+    )
     if (prevKey !== key) {
       window.localStorage.removeItem(prevKey)
     }
